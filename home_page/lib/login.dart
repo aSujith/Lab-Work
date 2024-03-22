@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -10,14 +12,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Stack(
         children: [
           Container(
-            height: double.maxFinite,
-            width: double.maxFinite,
+            height: double.infinity,
+            width: double.infinity,
             color: Colors.white,
           ),
           Column(
@@ -126,14 +129,27 @@ class _LoginState extends State<Login> {
                 height: 150,
                 width: 350,
                 color: Colors.amber,
-                child: Row(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       "Name",
                       style: TextStyle(fontSize: 20),
                     ),
-                    TextField(
-                      
+                    Container(
+                      height: 50,
+                      width: 300,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10)),
+                      child: TextField(
+                        controller: nameController,
+                        onSubmitted: (value) {
+                          log(value);
+                        },
+                        decoration:
+                            InputDecoration(enabledBorder: InputBorder.none),
+                      ),
                     )
                   ],
                 ),

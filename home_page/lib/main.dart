@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_page/home.dart';
 import 'package:home_page/login.dart';
-import 'package:home_page/musicplayer.dart';
+// import 'package:home_page/musicplayer.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
 
@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
         home: Scaffold(
           body: PageView(controller: controller, children: const [
             Home(),
-            MusicPlayer(),
+            // MusicPlayer(),
             Login(),
           ]),
         ));
