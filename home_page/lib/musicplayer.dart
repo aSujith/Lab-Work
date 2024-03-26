@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MusicPlayer extends StatefulWidget {
-  const MusicPlayer({super.key});
+  const MusicPlayer({super.key, required this.control});
 
+  final PageController control;
   @override
   State<MusicPlayer> createState() => _MusicPlayerState();
 }
@@ -55,12 +56,12 @@ class _MusicPlayerState extends State<MusicPlayer> {
                   height: 100,
                   width: double.infinity,
                   margin: const EdgeInsets.only(top: 20),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(Icons.keyboard_arrow_down_sharp,
+                      const Icon(Icons.keyboard_arrow_down_sharp,
                           size: 25, color: Colors.white),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(left: 30, right: 30),
                         child: Center(
                           child: Text(
@@ -69,7 +70,14 @@ class _MusicPlayerState extends State<MusicPlayer> {
                           ),
                         ),
                       ),
-                      Icon(Icons.menu, size: 25, color: Colors.white)
+                      InkWell(
+                          onTap: () {
+                            widget.control.animateToPage(1,
+                                duration: const Duration(milliseconds: 800),
+                                curve: Curves.linear);
+                          },
+                          child: const Icon(Icons.menu,
+                              size: 25, color: Colors.white))
                     ],
                   ),
                 ),
