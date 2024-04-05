@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:home_page/address.dart';
 
@@ -450,12 +451,32 @@ class _LoginState extends State<Login> {
                     ),
                     InkWell(
                       onTap: () {
-                        log(name.text);
-                        log(email.text);
-                        log(password.text);
+                        if (password.text.isEmpty || password.text == '') {
+                          final snacky = SnackBar(
+                              backgroundColor: Colors.transparent,
+                              behavior: SnackBarBehavior.floating,
+                              elevation: 0,
+                              margin: EdgeInsets.symmetric(horizontal: 0),
+                              content: AwesomeSnackbarContent(
+                                  title: 'Password',
+                                  message: 'password is empty',
+                                  contentType: ContentType.warning));
+                          ScaffoldMessenger.of(context).showSnackBar(snacky);
+                          print("Password is empty");
+
+                          return;
+                        }
+                        // log(name.text);
+                        // log(email.text);
+                        // log(password.text);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => AddressTab()),
+                          MaterialPageRoute(
+                              builder: (context) => AddressTab(
+                                    name: name.text,
+                                    email: email.text,
+                                    password: password.text,
+                                  )),
                         );
                       },
                       child: Container(

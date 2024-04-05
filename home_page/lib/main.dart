@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:home_page/address.dart';
-// import 'package:home_page/home.dart';
+
 import 'package:home_page/login.dart';
 
-import 'musicplayer.dart';
-// import 'package:home_page/musicplayer.dart';
+// import 'musicplayer.dart';
+import 'package:home_page/musicplayer.dart';
 
-// import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       //     AddressTab(control: controller)
       //   ]),
       // )
-      home: Login(),
+      home: MusicPlayer(),
     );
   }
 }

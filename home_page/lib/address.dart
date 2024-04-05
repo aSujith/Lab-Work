@@ -6,7 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:home_page/login.dart';
 
 class AddressTab extends StatefulWidget {
-  const AddressTab({super.key});
+  const AddressTab(
+      {super.key,
+      required this.name,
+      required this.email,
+      required this.password});
+  final String name;
+  final String email;
+  final String password;
+
   @override
   State<AddressTab> createState() => _AddressTabState();
 }
@@ -14,8 +22,9 @@ class AddressTab extends StatefulWidget {
 class _AddressTabState extends State<AddressTab> {
   final TextEditingController street = TextEditingController();
   final TextEditingController building_no = TextEditingController();
-  final TextEditingController appartment_no = TextEditingController();
+  final TextEditingController Apartment_no = TextEditingController();
   final TextEditingController city = TextEditingController();
+  final TextEditingController postalCode = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
@@ -35,19 +44,20 @@ class _AddressTabState extends State<AddressTab> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                        width: 30,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Login()),
-                            );
-                          },
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                      },
+                      child: Container(
+                          width: 40,
+                          height: 40,
                           child: Icon(
                             Icons.arrow_back_ios_new,
-                          ),
-                        )),
+                          )),
+                    ),
                     Container(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -61,8 +71,8 @@ class _AddressTabState extends State<AddressTab> {
                       ),
                     ),
                     SizedBox(
-                      width: 30,
-                      height: 20,
+                      width: 40,
+                      height: 40,
                     )
                   ],
                 ),
@@ -168,44 +178,59 @@ class _AddressTabState extends State<AddressTab> {
                             textbox(
                                 width: width / 2.4,
                                 eg: "eg.: 54",
-                                hint: "Appartment Number",
-                                title: "Appartment No.",
-                                controller: appartment_no),
+                                hint: "Apartment Number",
+                                title: "Apartment No.",
+                                controller: Apartment_no),
                           ],
                         ),
                         textbox(
+                            keyboard: TextInputType.number,
                             width: double.infinity,
                             eg: "eg.: London",
                             hint: "City",
                             title: "City",
                             controller: city),
                         textbox(
+                            keyboard: TextInputType.number,
                             width: double.infinity,
                             eg: "eg.: 192-782",
                             hint: "_ _ _ - _ _ _",
                             title: "Postal Code",
-                            controller: street),
+                            controller: postalCode),
                       ]),
                 ),
-                Container(
-                  height: 170,
-                  width: double.infinity,
-                  // color: Color.fromARGB(255, 0, 0, 0),
-                  child: Center(
-                    child: Container(
-                      height: 55,
-                      width: 350,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 16, 179, 25),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                          child: Text(
-                        "Submit Form",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                      )),
+                InkWell(
+                  onTap: () {
+                  
+                    log("Name: ${widget.name}");
+                    log("Email: ${widget.email}");
+                    log("Password: ${widget.password}");
+                    log("Street: ${street.text}");
+                    log("Building Number: ${building_no.text}");
+                    log("Apartment Number: ${Apartment_no.text}");
+                    log("City: ${city.text}");
+                    log("Postal Code: ${postalCode.text}");
+                  },
+                  child: Container(
+                    height: 170,
+                    width: double.infinity,
+                    // color: Color.fromARGB(255, 0, 0, 0),
+                    child: Center(
+                      child: Container(
+                        height: 55,
+                        width: 350,
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 16, 179, 25),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                            child: Text(
+                          "Submit Form",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        )),
+                      ),
                     ),
                   ),
                 ),
@@ -222,7 +247,8 @@ class _AddressTabState extends State<AddressTab> {
       TextEditingController? controller,
       String? hint,
       String? eg,
-      double? width}) {
+      double? width,
+      TextInputType keyboard = TextInputType.text}) {
     return Column(
       // mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,6 +276,7 @@ class _AddressTabState extends State<AddressTab> {
               ],
             ),
             child: TextField(
+              keyboardType: keyboard,
               controller: controller,
               onSubmitted: (value) {
                 log(value);
